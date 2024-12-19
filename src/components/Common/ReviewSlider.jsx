@@ -18,22 +18,77 @@ import { apiConnector } from "../../services/apiConnector"
 import { ratingsEndpoints } from "../../services/apis"
 
 function ReviewSlider() {
-  const [reviews, setReviews] = useState([])
+  const [reviews, setReviews] = useState([
+    {
+      user: {
+        firstName: "John",
+        lastName: "Doe",
+        image: null,
+      },
+      course: {
+        courseName: "JavaScript for Beginners",
+      },
+      review:
+        "This course was amazing! It helped me understand the basics of JavaScript clearly.",
+      rating: 4.5,
+    },
+    {
+      user: {
+        firstName: "Jane",
+        lastName: "Smith",
+        image: null,
+      },
+      course: {
+        courseName: "React Masterclass",
+      },
+      review:
+        "React concepts were explained very well. Highly recommend for beginners!",
+      rating: 5.0,
+    },
+    {
+      user: {
+        firstName: "Robert",
+        lastName: "Brown",
+        image: null,
+      },
+      course: {
+        courseName: "Python Programming",
+      },
+      review:
+        "Good course, but it could have included more advanced topics. Still worth it.",
+      rating: 4.0,
+    },
+    {
+      user: {
+        firstName: "Emily",
+        lastName: "Davis",
+        image: null,
+      },
+      course: {
+        courseName: "Data Structures in C++",
+      },
+      review:
+        "Excellent explanations of complex concepts. This course really helped me excel in my studies.",
+      rating: 4.8,
+    },
+  ])
   const truncateWords = 15
 
   useEffect(() => {
     ;(async () => {
-      const { data } = await apiConnector(
-        "GET",
-        ratingsEndpoints.REVIEWS_DETAILS_API
-      )
-      if (data?.success) {
-        setReviews(data?.data)
+      try {
+        const { data } = await apiConnector(
+          "GET",
+          ratingsEndpoints.REVIEWS_DETAILS_API
+        )
+        if (data?.success) {
+          setReviews(data?.data)
+        }
+      } catch (error) {
+        console.log("Error fetching reviews:", error)
       }
     })()
   }, [])
-
-  // console.log(reviews)
 
   return (
     <div className="text-white">
@@ -61,7 +116,7 @@ function ReviewSlider() {
                           ? review?.user?.image
                           : `https://api.dicebear.com/5.x/initials/svg?seed=${review?.user?.firstName} ${review?.user?.lastName}`
                       }
-                      alt=""
+                      alt="User"
                       className="h-9 w-9 rounded-full object-cover"
                     />
                     <div className="flex flex-col">
@@ -79,7 +134,7 @@ function ReviewSlider() {
                           .join(" ")} ...`
                       : `${review?.review}`}
                   </p>
-                  <div className="flex items-center gap-2 ">
+                  <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-yellow-100">
                       {review.rating.toFixed(1)}
                     </h3>
@@ -97,7 +152,6 @@ function ReviewSlider() {
               </SwiperSlide>
             )
           })}
-          {/* <SwiperSlide>Slide 1</SwiperSlide> */}
         </Swiper>
       </div>
     </div>
