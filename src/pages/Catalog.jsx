@@ -18,32 +18,43 @@ function Catalog() {
   const [active, setActive] = useState(1)
   const [catalogPageData, setCatalogPageData] = useState(null)
   const [categoryId, setCategoryId] = useState("")
+  const [categoryList, setCategoryList] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  
   // Fetch All Categories
   useEffect(() => {
     ;(async () => {
       try {
         const res = await apiConnector("GET", categories.CATEGORIES_API)
+        setCategoryList(res?.data?.data || [])
         const category_id = res?.data?.data?.filter(
           (ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName
         )[0]._id
         setCategoryId(category_id)
+        if (category_id) {
+          fetchCatalogPageData(category_id)
+        }
       } catch (error) {
         console.log("Could not fetch Categories.", error)
       }
     })()
   }, [catalogName])
-  useEffect(() => {
-    if (categoryId) {
-      ;(async () => {
-        try {
-          const res = await getCatalogPageData(categoryId)
-          setCatalogPageData(res)
-        } catch (error) {
-          console.log(error)
-        }
-      })()
+
+  const fetchCatalogPageData = async (category_id) => {
+    try {
+      const res = await getCatalogPageData(category_id)
+      setCatalogPageData(res)
+    } catch (error) {
+      console.log("Error fetching catalog data", error)
     }
-  }, [categoryId])
+  }
+
+  // Handle category change
+  const handleCategoryChange = (e) => {
+    const categoryId = e.target.value
+    setSelectedCategory(categoryList.find(c => c._id === categoryId))
+    fetchCatalogPageData(categoryId)
+  }
 
   if (loading || !catalogPageData) {
     return (
@@ -76,6 +87,26 @@ function Catalog() {
         </div>
       </div>
 
+      {/* Dropdown to select category */}
+      <div className="mx-auto w-full max-w-maxContentTab px-4 py-4">
+        <label htmlFor="categorySelect" className="text-lg text-richblack-300">
+          Select a Category:
+        </label>
+        <select
+          id="categorySelect"
+          value={selectedCategory?._id || ""}
+          onChange={handleCategoryChange}
+          className="mt-2 px-4 py-2 border rounded-md"
+        >
+          <option value="">Choose a category</option>
+          {categoryList.map((category) => (
+            <option key={category._id} value={category._id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* Section 1 */}
       <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
         <div className="section_heading">Courses to get you started</div>
@@ -88,7 +119,7 @@ function Catalog() {
             } cursor-pointer`}
             onClick={() => setActive(1)}
           >
-            Most Populer
+            Most Popular
           </p>
           <p
             className={`px-4 py-2 ${
@@ -107,6 +138,7 @@ function Catalog() {
           />
         </div>
       </div>
+
       {/* Section 2 */}
       <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
         <div className="section_heading">
