@@ -1,19 +1,19 @@
 // Icons Import
-import { FaArrowRight } from "react-icons/fa"
-import { Link } from "react-router-dom"
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 // Image and Video Import
-import Banner from "../assets/Images/banner.mp4"
+import Banner from "../assets/Images/banner.mp4";
 // Component Imports
-import Footer from "../components/Common/Footer"
-import ReviewSlider from "../components/Common/ReviewSlider"
-import CTAButton from "../components/core/HomePage/Button"
-import CodeBlocks from "../components/core/HomePage/CodeBlocks"
-import ExploreMore from "../components/core/HomePage/ExploreMore"
-import HighlightText from "../components/core/HomePage/HighlightText"
-import InstructorSection from "../components/core/HomePage/InstructorSection"
-import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection"
-import TimelineSection from "../components/core/HomePage/Timeline"
+import Footer from "../components/Common/Footer";
+import ReviewSlider from "../components/Common/ReviewSlider";
+import CTAButton from "../components/core/HomePage/Button";
+import CodeBlocks from "../components/core/HomePage/CodeBlocks";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
+import HighlightText from "../components/core/HomePage/HighlightText";
+import InstructorSection from "../components/core/HomePage/InstructorSection";
+import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import TimelineSection from "../components/core/HomePage/Timeline";
 
 function Home() {
   return (
@@ -66,7 +66,7 @@ function Home() {
           </video>
         </div>
 
-        {/* Code Section 1  */}
+        {/* Code Section 1 */}
         <div>
           <CodeBlocks
             position={"lg:flex-row"}
@@ -132,7 +132,7 @@ function Home() {
       {/* Section 2 */}
       <div className="bg-pure-greys-5 text-richblack-700">
         <div className="homepage_bg h-[320px]">
-          {/* Explore Full Catagory Section */}
+          {/* Explore Full Category Section */}
           <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
             <div className="lg:h-[150px]"></div>
             <div className="flex flex-row gap-7 text-white lg:mt-8">
@@ -149,7 +149,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 ">
+        <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
           {/* Job that is in Demand - Section 1 */}
           <div className="mb-10 mt-[-100px] flex flex-col justify-between gap-7 lg:mt-20 lg:flex-row lg:gap-0">
             <div className="text-4xl font-semibold lg:w-[45%] ">
@@ -158,7 +158,7 @@ function Home() {
             </div>
             <div className="flex flex-col items-start gap-10 lg:w-[40%]">
               <div className="text-[16px]">
-                The modern StudyNotion is the dictates its own terms. Today, to
+                The modern StudyNotion dictates its own terms. Today, to
                 be a competitive specialist requires more than professional
                 skills.
               </div>
@@ -181,17 +181,24 @@ function Home() {
         {/* Become a instructor section */}
         <InstructorSection />
 
-        {/* Reviws from Other Learner */}
+        {/* Reviews from Other Learners */}
         <h1 className="text-center text-4xl font-semibold mt-8">
           Reviews from other learners
         </h1>
-        <ReviewSlider />
+        <ReviewSlider
+          reviews={[
+            { name: "John Doe", review: "This course is amazing! I've learned so much in a short time." },
+            { name: "Jane Smith", review: "I love the hands-on projects! They really helped me understand the concepts." },
+            { name: "Alice Johnson", review: "The instructors are great, and the pace is perfect for beginners." },
+            { name: "Bob Brown", review: "Highly recommend this platform. It's user-friendly and offers great support." }
+          ]}
+        />
       </div>
 
       {/* Footer */}
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
