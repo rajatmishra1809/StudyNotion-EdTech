@@ -15,7 +15,7 @@ export const NavbarLinks = [
       { title: "Cloud Computing", path: "/catalog/cloud-computing" },
       { title: "Generative AI", path: "/catalog/generative-ai" },
       { title: "Brian Scott", path: "/catalog/brian-scott" },
-    ],
+    ]
   },
   {
     title: "About Us",
